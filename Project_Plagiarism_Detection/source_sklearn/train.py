@@ -8,7 +8,11 @@ import pandas as pd
 import joblib
 
 ## TODO: Import any additional libraries you need to define a model
-from sklearn.ensemble import RandomForestClassifier
+# from sklearn.ensemble import RandomForestClassifier
+# from sklearn.pipeline import make_pipeline
+# from sklearn.preprocessing import StandardScaler
+# from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
 
 # Provided model load function
 def model_fn(model_dir):
@@ -40,8 +44,8 @@ if __name__ == '__main__':
     parser.add_argument('--data-dir', type=str, default=os.environ['SM_CHANNEL_TRAIN'])
     
     ## TODO: Add any additional arguments that you will need to pass into your model
-    parser.add_argument('--n_estimators', type=int, default=100)
-    parser.add_argument('--min_samples_leaf', type=int, default=3)
+#     parser.add_argument('--n_estimators', type=int, default=100)
+#     parser.add_argument('--min_samples_leaf', type=int, default=3)
     
     # args holds all passed-in arguments
     args = parser.parse_args()
@@ -59,8 +63,9 @@ if __name__ == '__main__':
     
 
     ## TODO: Define a model 
-    model = RandomForestClassifier(n_estimators=args.n_estimators, min_samples_leaf=args.min_samples_leaf, random_state=42) 
-    
+    # model = RandomForestClassifier(n_estimators=args.n_estimators, min_samples_leaf=args.min_samples_leaf, random_state=42) 
+#     model = make_pipeline(StandardScaler(), SVC(gamma='auto'))
+    model = GaussianNB()
     
     ## TODO: Train the model
     model.fit(train_x, train_y)
